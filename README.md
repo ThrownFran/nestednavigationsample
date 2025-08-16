@@ -44,10 +44,18 @@ App NavHost (start = Home)
 
 ## Window insets (edge‑to‑edge)
 
-- Edge‑to‑edge is enabled in `MainActivity` with `enableEdgeToEdge()` so content can render behind system bars.
-- Each screen uses `Scaffold` and applies `Modifier.padding(innerPadding)` to respect system bar insets and app bars.
-- The shared bottom-bar container only renders the bottom bar; it applies `innerPadding.calculateBottomPadding()` so content isn’t covered by the bar while avoiding double top padding (top/start/end set to 0 and handled per screen).
-- TopAppBar lives in each screen (not the container), which prevents double insets and keeps responsibilities clear.
+- Edge‑to‑edge is enabled in `MainActivity` via `enableEdgeToEdge()`. Theme uses `NoActionBar` and Compose provides app bars.
+- Every screen uses a `Scaffold` and applies `Modifier.padding(innerPadding)` so content respects system bars and its TopAppBar.
+- The shared bottom bar container (BottomBarScreen) now consumes the parent `Scaffold` insets:
+  - `Modifier.padding(innerPadding).consumeWindowInsets(innerPadding)` is applied on the content Box.
+  - This ensures system bar insets are handled once at the parent, and the content slot won’t re-apply them (avoids double insets).
+- Responsibility split remains the same:
+  - TopAppBar lives inside each screen (General, Account, About, and their Details).
+  - BottomBar lives in the shared container.
+- Tips and extensions:
+  - Don’t stack `navigationBarsPadding()` with `innerPadding`/`consumeWindowInsets` for the same edge; pick one path to avoid double spacing.
+  - For text fields/lists where IME (keyboard) can overlap, add `Modifier.imePadding()` to the scrollable container on that screen.
+  - If you need light/dark status bar icons, you can control them with `WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = …` (not required in this sample).
 
 ## Deep links
 
