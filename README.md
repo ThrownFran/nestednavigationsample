@@ -13,20 +13,26 @@ A minimal, clear Jetpack Compose sample demonstrating nested navigation with:
 App NavHost (start = Home)
 ├─ Home
 ├─ Search
-└─ Settings (graph)
-   ├─ General (graph)
+└─ Settings (graph)        ← parent nested graph for the whole Settings area
+   ├─ General (graph)      ← nested graph per tab
    │  ├─ General (root)
    │  └─ General • Details
-   ├─ Account (graph)
+   ├─ Account (graph)      ← nested graph per tab
    │  ├─ Account (root)
    │  └─ Account • Details
-   └─ About (graph)
+   └─ About (graph)        ← nested graph per tab
       ├─ About (root)
       └─ About • Details
 ```
 
-- Each Settings tab is its own nested graph with an independent stack.
-- The bottom bar switches tabs; each screen defines its own TopAppBar.
+- We use two levels of nesting:
+  1) Settings parent graph groups all Settings destinations under a single route and entry point (for deep links and app navigation).
+  2) A child nested graph per tab (General, Account, About) encapsulates that tab’s own back stack (root + details).
+- Benefits of grouping this way:
+  - Encapsulation: each tab owns its routes and stack independently.
+  - Simpler tab switching: we navigate to a tab graph route to switch and preserve/restore its stack.
+  - Clear deep linking: links can target the parent graph (open Settings) or a specific tab/destination.
+  - Maintainability: adding/removing a tab is localized to its nested graph and screens.
 
 ## Key behaviors
 
@@ -45,17 +51,12 @@ App NavHost (start = Home)
 ## Window insets (edge‑to‑edge)
 
 - Edge‑to‑edge is enabled in `MainActivity` via `enableEdgeToEdge()`. Theme uses `NoActionBar` and Compose provides app bars.
-- Every screen uses a `Scaffold` and applies `Modifier.padding(innerPadding)` so content respects system bars and its TopAppBar.
-- The shared bottom bar container (BottomBarScreen) now consumes the parent `Scaffold` insets:
-  - `Modifier.padding(innerPadding).consumeWindowInsets(innerPadding)` is applied on the content Box.
-  - This ensures system bar insets are handled once at the parent, and the content slot won’t re-apply them (avoids double insets).
-- Responsibility split remains the same:
-  - TopAppBar lives inside each screen (General, Account, About, and their Details).
-  - BottomBar lives in the shared container.
-- Tips and extensions:
-  - Don’t stack `navigationBarsPadding()` with `innerPadding`/`consumeWindowInsets` for the same edge; pick one path to avoid double spacing.
-  - For text fields/lists where IME (keyboard) can overlap, add `Modifier.imePadding()` to the scrollable container on that screen.
-  - If you need light/dark status bar icons, you can control them with `WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = …` (not required in this sample).
+- Every Settings destination is wrapped with a small shared container composable named `BottomBarScreen` (see `ui/settings/components/BottomBarScreen.kt`).
+  - Where it’s used: in the Settings graph builder (`ui/settings/navigation/SettingsGraph.kt`), each composable inside Settings (General, Account, About and their Details) is placed inside `BottomBarScreen`.
+  - What it does: renders the bottom navigation bar once and hosts the screen content in its slot.
+- Each screen owns its TopAppBar (defined inside the screen), avoiding double insets between parent and child scaffolds.
+- The shared container consumes the parent `Scaffold` insets:
+  - `Modifier.padding(innerPadding).consumeWindowInsets(innerPadding)` is applied to the content Box, so system bar insets are applied once at the parent and won’t be reapplied by children.
 
 ## Deep links
 
