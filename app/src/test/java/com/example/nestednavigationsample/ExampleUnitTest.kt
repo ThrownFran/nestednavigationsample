@@ -1,4 +1,4 @@
-package com.example.nestednavhostsample
+package com.example.nestednavigationsample
 
 import org.junit.Test
 

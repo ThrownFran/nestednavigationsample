@@ -1,4 +1,4 @@
-package com.example.nestednavhostsample.ui.search
+package com.example.nestednavigationsample.ui.search
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

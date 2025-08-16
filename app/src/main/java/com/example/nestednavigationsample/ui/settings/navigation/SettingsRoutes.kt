@@ -1,4 +1,4 @@
-package com.example.nestednavhostsample.ui.settings.navigation
+package com.example.nestednavigationsample.ui.settings.navigation
 
 object SettingsRoutes {
     // Parent graph

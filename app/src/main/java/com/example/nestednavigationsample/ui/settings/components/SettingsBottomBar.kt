@@ -1,4 +1,4 @@
-package com.example.nestednavhostsample.ui.settings.components
+package com.example.nestednavigationsample.ui.settings.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -9,7 +9,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.example.nestednavhostsample.ui.settings.navigation.SettingsTab
+import com.example.nestednavigationsample.ui.settings.navigation.SettingsTab
 
 @Composable
 fun SettingsBottomBar(

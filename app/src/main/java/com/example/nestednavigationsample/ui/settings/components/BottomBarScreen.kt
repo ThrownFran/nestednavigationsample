@@ -1,4 +1,4 @@
-package com.example.nestednavhostsample.ui.settings.components
+package com.example.nestednavigationsample.ui.settings.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -9,7 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.nestednavhostsample.ui.settings.navigation.SettingsTab
+import com.example.nestednavigationsample.ui.settings.navigation.SettingsTab
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable

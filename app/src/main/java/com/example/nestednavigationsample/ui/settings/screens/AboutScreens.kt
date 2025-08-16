@@ -1,4 +1,4 @@
-package com.example.nestednavhostsample.ui.settings.screens
+package com.example.nestednavigationsample.ui.settings.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,12 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.nestednavhostsample.ui.settings.components.SettingsScaffold
-import com.example.nestednavhostsample.ui.settings.components.SettingsTopBar
+import com.example.nestednavigationsample.ui.settings.components.SettingsScaffold
+import com.example.nestednavigationsample.ui.settings.components.SettingsTopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AccountScreen(
+fun AboutScreen(
     onBack: () -> Unit,
     onGoDetails: () -> Unit
 ) {
@@ -34,7 +34,7 @@ fun AccountScreen(
                 .wrapContentSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Account")
+            Text("About")
             Spacer(Modifier.height(16.dp))
             Button(onClick = onGoDetails) { Text("Go deeper") }
         }
@@ -43,20 +43,18 @@ fun AccountScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AccountDetailsScreen(onBack: () -> Unit) {
+fun AboutDetailsScreen(onBack: () -> Unit) {
     SettingsScaffold(
-        topBar = {
-            SettingsTopBar(onBack)
-        }
+        topBar = { SettingsTopBar(onBack) }
     ) { innerPadding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .padding(innerPadding)
                 .fillMaxSize()
-                .wrapContentSize(),
+                .wrapContentSize()
+                .padding(innerPadding)
         ) {
-            Text("Account • Details")
+            Text("About • Details")
         }
     }
 }

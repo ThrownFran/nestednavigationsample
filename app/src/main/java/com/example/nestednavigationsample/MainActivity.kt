@@ -1,4 +1,4 @@
-package com.example.nestednavhostsample
+package com.example.nestednavigationsample
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,11 +9,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.nestednavhostsample.ui.home.HomeScreen
-import com.example.nestednavhostsample.ui.search.SearchScreen
-import com.example.nestednavhostsample.ui.settings.navigation.SettingsRoutes
-import com.example.nestednavhostsample.ui.settings.navigation.settingsGraph
-import com.example.nestednavhostsample.ui.theme.NestedNavHostSampleTheme
+import com.example.nestednavigationsample.ui.home.HomeScreen
+import com.example.nestednavigationsample.ui.search.SearchScreen
+import com.example.nestednavigationsample.ui.settings.navigation.SettingsRoutes
+import com.example.nestednavigationsample.ui.settings.navigation.settingsGraph
+import com.example.nestednavigationsample.ui.theme.NestedNavigationSampleTheme
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            NestedNavHostSampleTheme {
+            NestedNavigationSampleTheme {
                 Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize()) {
                     AppNavHost()
                 }

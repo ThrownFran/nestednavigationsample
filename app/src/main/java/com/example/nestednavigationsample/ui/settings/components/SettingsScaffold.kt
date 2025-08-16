@@ -1,4 +1,4 @@
-package com.example.nestednavhostsample.ui.settings.components
+package com.example.nestednavigationsample.ui.settings.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets

@@ -1,4 +1,4 @@
-package com.example.nestednavhostsample.ui.settings.navigation
+package com.example.nestednavigationsample.ui.settings.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -6,13 +6,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navDeepLink
-import com.example.nestednavhostsample.ui.settings.components.BottomBarScreen
-import com.example.nestednavhostsample.ui.settings.screens.AboutDetailsScreen
-import com.example.nestednavhostsample.ui.settings.screens.AboutScreen
-import com.example.nestednavhostsample.ui.settings.screens.AccountDetailsScreen
-import com.example.nestednavhostsample.ui.settings.screens.AccountScreen
-import com.example.nestednavhostsample.ui.settings.screens.GeneralDetailsScreen
-import com.example.nestednavhostsample.ui.settings.screens.GeneralScreen
+import com.example.nestednavigationsample.ui.settings.components.BottomBarScreen
+import com.example.nestednavigationsample.ui.settings.screens.AboutDetailsScreen
+import com.example.nestednavigationsample.ui.settings.screens.AboutScreen
+import com.example.nestednavigationsample.ui.settings.screens.AccountDetailsScreen
+import com.example.nestednavigationsample.ui.settings.screens.AccountScreen
+import com.example.nestednavigationsample.ui.settings.screens.GeneralDetailsScreen
+import com.example.nestednavigationsample.ui.settings.screens.GeneralScreen
 
 fun NavGraphBuilder.settingsGraph(navController: NavController) {
     val navigateToTab: (SettingsTab) -> Unit = { tab ->
@@ -40,7 +40,7 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
         startDestination = SettingsRoutes.GeneralGraph,
         route = SettingsRoutes.Graph,
         deepLinks = listOf(
-            navDeepLink { uriPattern = "app://nestednavhostsample/settings" }
+            navDeepLink { uriPattern = "app://nestednavigationsample/settings" }
         )
     ) {
         // General tab graph
@@ -51,7 +51,7 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
             composable(
                 route = SettingsRoutes.General,
                 deepLinks = listOf(
-                    navDeepLink { uriPattern = "app://nestednavhostsample/settings/general" }
+                    navDeepLink { uriPattern = "app://nestednavigationsample/settings/general" }
                 )
             ) {
                 BottomBarScreen(
@@ -68,7 +68,7 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                 route = SettingsRoutes.GeneralDetails,
                 deepLinks = listOf(
                     navDeepLink {
-                        uriPattern = "app://nestednavhostsample/settings/general/details"
+                        uriPattern = "app://nestednavigationsample/settings/general/details"
                     }
                 )
             ) {
@@ -89,7 +89,7 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
             composable(
                 route = SettingsRoutes.Account,
                 deepLinks = listOf(
-                    navDeepLink { uriPattern = "app://nestednavhostsample/settings/account" }
+                    navDeepLink { uriPattern = "app://nestednavigationsample/settings/account" }
                 )
             ) {
                 BottomBarScreen(
@@ -106,7 +106,7 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                 route = SettingsRoutes.AccountDetails,
                 deepLinks = listOf(
                     navDeepLink {
-                        uriPattern = "app://nestednavhostsample/settings/account/details"
+                        uriPattern = "app://nestednavigationsample/settings/account/details"
                     }
                 )
             ) {
@@ -127,7 +127,7 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
             composable(
                 route = SettingsRoutes.About,
                 deepLinks = listOf(
-                    navDeepLink { uriPattern = "app://nestednavhostsample/settings/about" }
+                    navDeepLink { uriPattern = "app://nestednavigationsample/settings/about" }
                 )
             ) {
                 BottomBarScreen(
@@ -143,7 +143,7 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
             composable(
                 route = SettingsRoutes.AboutDetails,
                 deepLinks = listOf(
-                    navDeepLink { uriPattern = "app://nestednavhostsample/settings/about/details" }
+                    navDeepLink { uriPattern = "app://nestednavigationsample/settings/about/details" }
                 )
             ) {
                 BottomBarScreen(

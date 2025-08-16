@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "NestedNavHostSample"
+rootProject.name = "nestednavigationsample"
 include(":app")

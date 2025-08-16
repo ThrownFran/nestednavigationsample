@@ -1,4 +1,4 @@
-package com.example.nestednavhostsample.ui.theme
+package com.example.nestednavigationsample.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

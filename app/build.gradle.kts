@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.nestednavhostsample"
+    namespace = "com.example.nestednavigationsample"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.nestednavhostsample"
+        applicationId = "com.example.nestednavigationsample"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
