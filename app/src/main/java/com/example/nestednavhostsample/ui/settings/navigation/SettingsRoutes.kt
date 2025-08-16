@@ -20,3 +20,4 @@ object SettingsRoutes {
     const val AboutDetails = "settings/about/details"
 }
 
+enum class SettingsTab { General, Account, About }

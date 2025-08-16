@@ -14,6 +14,20 @@ import com.example.nestednavhostsample.ui.settings.screens.GeneralDetailsScreen
 import com.example.nestednavhostsample.ui.settings.screens.GeneralScreen
 
 fun NavGraphBuilder.settingsGraph(navController: NavController) {
+
+    val navigateToTab: (SettingsTab) -> Unit = { tab ->
+        val target = when (tab) {
+            SettingsTab.General -> SettingsRoutes.GeneralGraph
+            SettingsTab.Account -> SettingsRoutes.AccountGraph
+            SettingsTab.About -> SettingsRoutes.AboutGraph
+        }
+        navController.navigate(target) {
+            launchSingleTop = true
+            restoreState = true
+            popUpTo(SettingsRoutes.Graph) { saveState = true }
+        }
+    }
+
     navigation(
         startDestination = SettingsRoutes.GeneralGraph,
         route = SettingsRoutes.Graph,
@@ -32,7 +46,11 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                     navDeepLink { uriPattern = "app://nestednavhostsample/settings/general" }
                 )
             ) {
-                SettingsScaffold(navController = navController, onBack = { navController.popBackStack() }) {
+                SettingsScaffold(
+                    selectedTab = SettingsTab.General,
+                    onTabSelected = navigateToTab,
+                    onBack = { navController.popBackStack() }
+                ) {
                     GeneralScreen(onGoDetails = { navController.navigate(SettingsRoutes.GeneralDetails) })
                 }
             }
@@ -42,7 +60,11 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                     navDeepLink { uriPattern = "app://nestednavhostsample/settings/general/details" }
                 )
             ) {
-                SettingsScaffold(navController = navController, onBack = { navController.popBackStack() }) {
+                SettingsScaffold(
+                    selectedTab = SettingsTab.General,
+                    onTabSelected = navigateToTab,
+                    onBack = { navController.popBackStack() }
+                ) {
                     GeneralDetailsScreen()
                 }
             }
@@ -59,7 +81,11 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                     navDeepLink { uriPattern = "app://nestednavhostsample/settings/account" }
                 )
             ) {
-                SettingsScaffold(navController = navController, onBack = { navController.popBackStack() }) {
+                SettingsScaffold(
+                    selectedTab = SettingsTab.Account,
+                    onTabSelected = navigateToTab,
+                    onBack = { navController.popBackStack() }
+                ) {
                     AccountScreen(onGoDetails = { navController.navigate(SettingsRoutes.AccountDetails) })
                 }
             }
@@ -69,7 +95,11 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                     navDeepLink { uriPattern = "app://nestednavhostsample/settings/account/details" }
                 )
             ) {
-                SettingsScaffold(navController = navController, onBack = { navController.popBackStack() }) {
+                SettingsScaffold(
+                    selectedTab = SettingsTab.Account,
+                    onTabSelected = navigateToTab,
+                    onBack = { navController.popBackStack() }
+                ) {
                     AccountDetailsScreen()
                 }
             }
@@ -86,7 +116,11 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                     navDeepLink { uriPattern = "app://nestednavhostsample/settings/about" }
                 )
             ) {
-                SettingsScaffold(navController = navController, onBack = { navController.popBackStack() }) {
+                SettingsScaffold(
+                    selectedTab = SettingsTab.About,
+                    onTabSelected = navigateToTab,
+                    onBack = { navController.popBackStack() }
+                ) {
                     AboutScreen(onGoDetails = { navController.navigate(SettingsRoutes.AboutDetails) })
                 }
             }
@@ -96,11 +130,14 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                     navDeepLink { uriPattern = "app://nestednavhostsample/settings/about/details" }
                 )
             ) {
-                SettingsScaffold(navController = navController, onBack = { navController.popBackStack() }) {
+                SettingsScaffold(
+                    selectedTab = SettingsTab.About,
+                    onTabSelected = navigateToTab,
+                    onBack = { navController.popBackStack() }
+                ) {
                     AboutDetailsScreen()
                 }
             }
         }
     }
 }
-

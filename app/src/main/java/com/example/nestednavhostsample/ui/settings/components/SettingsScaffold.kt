@@ -8,18 +8,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
+import com.example.nestednavhostsample.ui.settings.navigation.SettingsTab
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScaffold(
-    navController: NavController,
+    selectedTab: SettingsTab,
+    onTabSelected: (SettingsTab) -> Unit,
     onBack: () -> Unit,
     content: @Composable () -> Unit
 ) {
     Scaffold(
         topBar = { SettingsTopBar(onBack) },
-        bottomBar = { SettingsBottomBar(navController) }
+        bottomBar = { SettingsBottomBar(selectedTab = selectedTab, onTabSelected = onTabSelected) }
     ) { innerPadding ->
         Box(
             modifier = Modifier
@@ -29,4 +30,3 @@ fun SettingsScaffold(
         ) { content() }
     }
 }
-
