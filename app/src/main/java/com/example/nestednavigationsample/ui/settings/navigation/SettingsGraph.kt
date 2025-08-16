@@ -15,20 +15,16 @@ import com.example.nestednavigationsample.ui.settings.screens.GeneralDetailsScre
 import com.example.nestednavigationsample.ui.settings.screens.GeneralScreen
 
 fun NavGraphBuilder.settingsGraph(navController: NavController) {
+
     val navigateToTab: (SettingsTab) -> Unit = { tab ->
-        val (tabGraph, tabRoot) = when (tab) {
-            SettingsTab.General -> SettingsRoutes.GeneralGraph to SettingsRoutes.General
-            SettingsTab.Account -> SettingsRoutes.AccountGraph to SettingsRoutes.Account
-            SettingsTab.About -> SettingsRoutes.AboutGraph to SettingsRoutes.About
-        }
         val isOnTab = navController.currentBackStackEntry?.destination?.hierarchy
-            ?.any { it.route == tabGraph } == true
+            ?.any { it.route == tab.graphRoute } == true
 
         // If already on tab, pop to its root; else switch tab and restore state
         if (isOnTab) {
-            navController.popBackStack(tabRoot, inclusive = false, saveState = false)
+            navController.popBackStack(tab.rootRoute, inclusive = false, saveState = false)
         } else {
-            navController.navigate(tabGraph) {
+            navController.navigate(tab.graphRoute) {
                 launchSingleTop = true
                 restoreState = true
                 popUpTo(SettingsRoutes.Graph) { saveState = true }

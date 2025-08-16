@@ -20,4 +20,8 @@ object SettingsRoutes {
     const val AboutDetails = "settings/about/details"
 }
 
-enum class SettingsTab { General, Account, About }
+enum class SettingsTab(val graphRoute: String, val rootRoute: String) {
+    General(SettingsRoutes.GeneralGraph, SettingsRoutes.General),
+    Account(SettingsRoutes.AccountGraph, SettingsRoutes.Account),
+    About(SettingsRoutes.AboutGraph, SettingsRoutes.About),
+}
