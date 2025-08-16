@@ -9,15 +9,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.nestednavigationsample.ui.home.HomeScreen
 import com.example.nestednavigationsample.ui.search.SearchScreen
 import com.example.nestednavigationsample.ui.settings.navigation.SettingsRoutes
 import com.example.nestednavigationsample.ui.settings.navigation.settingsGraph
 import com.example.nestednavigationsample.ui.theme.NestedNavigationSampleTheme
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +24,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NestedNavigationSampleTheme {
-                Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize()) {
+                Surface(
+                    color = MaterialTheme.colorScheme.background,
+                    modifier = Modifier.fillMaxSize()
+                ) {
                     AppNavHost()
                 }
             }
@@ -45,13 +47,11 @@ private fun AppNavHost() {
     NavHost(navController = navController, startDestination = Routes.Home) {
         composable(Routes.Home) {
             HomeScreen(
-                onSearchClick = { navController.navigate(Routes.Search) },
+                onSearchClick = {
+                    navController.navigate(Routes.Search)
+                },
                 onSettingsClick = {
-                    navController.navigate(Routes.Settings) {
-                        launchSingleTop = true
-                        restoreState = true
-                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                    }
+                    navController.navigate(Routes.Settings)
                 }
             )
         }
