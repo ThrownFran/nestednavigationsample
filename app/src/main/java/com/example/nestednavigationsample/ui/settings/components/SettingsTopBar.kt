@@ -11,14 +11,14 @@ import androidx.compose.runtime.Composable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsTopBar(onBack: () -> Unit) {
+fun SettingsTopBar(title: String, onBack: () -> Unit) {
     CenterAlignedTopAppBar(
-        title = { Text("Settings") },
+        title = { Text(title) },
         navigationIcon = {
             IconButton(onClick = onBack) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Settings",
+                    contentDescription = title,
                 )
             }
         }

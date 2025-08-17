@@ -12,6 +12,10 @@ import com.example.nestednavigationsample.ui.settings.screen.account.AccountDeta
 import com.example.nestednavigationsample.ui.settings.screen.account.AccountMainScreen
 import com.example.nestednavigationsample.ui.settings.screen.general.GeneralDetailScreen
 import com.example.nestednavigationsample.ui.settings.screen.general.GeneralMainScreen
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavBackStackEntry
 
 fun NavGraphBuilder.settingsGraph(navController: NavController) {
 
@@ -48,7 +52,7 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                 deepLinks = listOf(
                     navDeepLink { uriPattern = "app://nestednavigationsample/settings/general" }
                 )
-            ) {
+            ) { backStackEntry ->
                 GeneralMainScreen(
                     selectedTab = SettingsTab.General,
                     onTabSelected = navigateToTab,
@@ -63,7 +67,7 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                         uriPattern = "app://nestednavigationsample/settings/general/details"
                     }
                 )
-            ) {
+            ) { backStackEntry ->
                 GeneralDetailScreen(
                     selectedTab = SettingsTab.General,
                     onTabSelected = navigateToTab,
@@ -82,8 +86,11 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                 deepLinks = listOf(
                     navDeepLink { uriPattern = "app://nestednavigationsample/settings/account" }
                 )
-            ) {
+            ) { backStackEntry ->
+                val sharedViewModel = backStackEntry.sharedSettingsViewModel(navController)
+
                 AccountMainScreen(
+                    sharedViewModel = sharedViewModel,
                     selectedTab = SettingsTab.Account,
                     onTabSelected = navigateToTab,
                     onBack = { navController.popBackStack() },
@@ -97,7 +104,7 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                         uriPattern = "app://nestednavigationsample/settings/account/details"
                     }
                 )
-            ) {
+            ) { backStackEntry ->
                 AccountDetailScreen(
                     selectedTab = SettingsTab.Account,
                     onTabSelected = navigateToTab,
@@ -116,8 +123,11 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                 deepLinks = listOf(
                     navDeepLink { uriPattern = "app://nestednavigationsample/settings/about" }
                 )
-            ) {
+            ) { backStackEntry ->
+                val sharedViewModel = backStackEntry.sharedSettingsViewModel(navController)
+
                 AboutMainScreen(
+                    sharedViewModel = sharedViewModel,
                     selectedTab = SettingsTab.About,
                     onTabSelected = navigateToTab,
                     onBack = { navController.popBackStack() },
@@ -131,7 +141,8 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                         uriPattern = "app://nestednavigationsample/settings/about/details"
                     }
                 )
-            ) {
+            ) { backStackEntry ->
+
                 AboutDetailScreen(
                     selectedTab = SettingsTab.About,
                     onTabSelected = navigateToTab,
@@ -140,4 +151,12 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
             }
         }
     }
+}
+
+@Composable
+private fun NavBackStackEntry.sharedSettingsViewModel(navController: NavController): SettingsSharedViewModel {
+    val parentEntry = remember(this) {
+        navController.getBackStackEntry(SettingsRoutes.Graph)
+    }
+    return viewModel(parentEntry)
 }

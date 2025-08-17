@@ -32,7 +32,7 @@ fun GeneralMainScreen(
 ) {
     Scaffold(
         topBar = {
-            SettingsTopBar(onBack)
+            SettingsTopBar("General Main", onBack)
         },
         bottomBar = {
             SettingsBottomBar(

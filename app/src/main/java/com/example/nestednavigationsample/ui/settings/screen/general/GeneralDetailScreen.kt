@@ -25,7 +25,7 @@ fun GeneralDetailScreen(
 ) {
     Scaffold(
         topBar = {
-            SettingsTopBar(onBack)
+            SettingsTopBar("General Detail", onBack)
         },
         bottomBar = {
             SettingsBottomBar(

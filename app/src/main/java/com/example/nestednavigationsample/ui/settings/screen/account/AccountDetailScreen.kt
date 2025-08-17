@@ -25,7 +25,7 @@ fun AccountDetailScreen(
 ) {
     Scaffold(
         topBar = {
-            SettingsTopBar(onBack)
+            SettingsTopBar("Account Detail", onBack)
         },
         bottomBar = {
             SettingsBottomBar(

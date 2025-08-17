@@ -24,7 +24,7 @@ fun AboutDetailScreen(
     onBack: () -> Unit
 ) {
     Scaffold(
-        topBar = { SettingsTopBar(onBack) },
+        topBar = { SettingsTopBar("About Detail", onBack) },
         bottomBar = {
             SettingsBottomBar(
                 selectedTab = selectedTab,
