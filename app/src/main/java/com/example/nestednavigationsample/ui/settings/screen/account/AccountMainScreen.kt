@@ -1,4 +1,4 @@
-package com.example.nestednavigationsample.ui.settings.screens
+package com.example.nestednavigationsample.ui.settings.screen.account
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,18 +13,30 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.nestednavigationsample.ui.settings.components.SettingsBottomBar
 import com.example.nestednavigationsample.ui.settings.components.SettingsTopBar
+import com.example.nestednavigationsample.ui.settings.navigation.SettingsTab
+import com.example.nestednavigationsample.ui.theme.NestedNavigationSampleTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AccountScreen(
+fun AccountMainScreen(
+    selectedTab: SettingsTab,
+    onTabSelected: (SettingsTab) -> Unit,
     onBack: () -> Unit,
     onGoDetails: () -> Unit
 ) {
     Scaffold(
         topBar = {
             SettingsTopBar(onBack)
+        },
+        bottomBar = {
+            SettingsBottomBar(
+                selectedTab = selectedTab,
+                onTabSelected = onTabSelected
+            )
         }
     ) { innerPadding ->
         Column(
@@ -41,22 +53,15 @@ fun AccountScreen(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@Preview
 @Composable
-fun AccountDetailsScreen(onBack: () -> Unit) {
-    Scaffold(
-        topBar = {
-            SettingsTopBar(onBack)
-        }
-    ) { innerPadding ->
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize()
-                .wrapContentSize(),
-        ) {
-            Text("Account • Details")
-        }
+private fun AccountScreenPreview() {
+    NestedNavigationSampleTheme {
+        AccountMainScreen(
+            selectedTab = SettingsTab.Account,
+            onTabSelected = {},
+            onBack = {},
+            onGoDetails = {}
+        )
     }
 }

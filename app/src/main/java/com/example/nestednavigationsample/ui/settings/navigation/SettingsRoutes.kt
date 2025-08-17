@@ -10,18 +10,18 @@ object SettingsRoutes {
     const val AboutGraph = "settings/about_graph"
 
     // Destinations
-    const val General = "settings/general"
+    const val GeneralMain = "settings/general"
     const val GeneralDetails = "settings/general/details"
 
-    const val Account = "settings/account"
+    const val AccountMain = "settings/account"
     const val AccountDetails = "settings/account/details"
 
-    const val About = "settings/about"
+    const val AboutMain = "settings/about"
     const val AboutDetails = "settings/about/details"
 }
 
-enum class SettingsTab(val graphRoute: String, val rootRoute: String) {
-    General(SettingsRoutes.GeneralGraph, SettingsRoutes.General),
-    Account(SettingsRoutes.AccountGraph, SettingsRoutes.Account),
-    About(SettingsRoutes.AboutGraph, SettingsRoutes.About),
+enum class SettingsTab(val graphRoute: String, val mainRoute: String) {
+    General(SettingsRoutes.GeneralGraph, SettingsRoutes.GeneralMain),
+    Account(SettingsRoutes.AccountGraph, SettingsRoutes.AccountMain),
+    About(SettingsRoutes.AboutGraph, SettingsRoutes.AboutMain),
 }

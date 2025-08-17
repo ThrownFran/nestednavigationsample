@@ -1,4 +1,4 @@
-package com.example.nestednavigationsample.ui.settings.screens
+package com.example.nestednavigationsample.ui.settings.screen.general
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,17 +15,31 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.nestednavigationsample.ui.settings.components.SettingsBottomBar
 import com.example.nestednavigationsample.ui.settings.components.SettingsTopBar
+import com.example.nestednavigationsample.ui.settings.navigation.SettingsTab
+import com.example.nestednavigationsample.ui.theme.NestedNavigationSampleTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GeneralScreen(
+fun GeneralMainScreen(
+    selectedTab: SettingsTab,
+    onTabSelected: (SettingsTab) -> Unit,
     onBack: () -> Unit,
     onGoDetails: () -> Unit,
 ) {
     Scaffold(
-        topBar = { SettingsTopBar(onBack) },
+        topBar = {
+            SettingsTopBar(onBack)
+        },
+        bottomBar = {
+            SettingsBottomBar(
+                selectedTab = selectedTab,
+                onTabSelected = onTabSelected
+            )
+        }
     ) { innerPadding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -50,22 +64,15 @@ fun GeneralScreen(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@Preview
 @Composable
-fun GeneralDetailsScreen(onBack: () -> Unit) {
-    Scaffold(
-        topBar = {
-            SettingsTopBar(onBack)
-        }
-    ) { innerPadding ->
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxSize()
-                .wrapContentSize()
-                .padding(innerPadding),
-        ) {
-            Text("General • Details")
-        }
+private fun GeneralScreenPreview() {
+    NestedNavigationSampleTheme {
+        GeneralMainScreen(
+            selectedTab = SettingsTab.General,
+            onTabSelected = {},
+            onBack = {},
+            onGoDetails = {}
+        )
     }
 }

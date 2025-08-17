@@ -6,13 +6,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navDeepLink
-import com.example.nestednavigationsample.ui.settings.components.BottomBarScreen
-import com.example.nestednavigationsample.ui.settings.screens.AboutDetailsScreen
-import com.example.nestednavigationsample.ui.settings.screens.AboutScreen
-import com.example.nestednavigationsample.ui.settings.screens.AccountDetailsScreen
-import com.example.nestednavigationsample.ui.settings.screens.AccountScreen
-import com.example.nestednavigationsample.ui.settings.screens.GeneralDetailsScreen
-import com.example.nestednavigationsample.ui.settings.screens.GeneralScreen
+import com.example.nestednavigationsample.ui.settings.screen.about.AboutDetailScreen
+import com.example.nestednavigationsample.ui.settings.screen.about.AboutMainScreen
+import com.example.nestednavigationsample.ui.settings.screen.account.AccountDetailScreen
+import com.example.nestednavigationsample.ui.settings.screen.account.AccountMainScreen
+import com.example.nestednavigationsample.ui.settings.screen.general.GeneralDetailScreen
+import com.example.nestednavigationsample.ui.settings.screen.general.GeneralMainScreen
 
 fun NavGraphBuilder.settingsGraph(navController: NavController) {
 
@@ -22,9 +21,9 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
 
         // If already on tab, pop to its root; else switch tab and restore state
         if (isOnTab) {
-            navController.popBackStack(tab.rootRoute, inclusive = false, saveState = false)
+            navController.popBackStack(route = tab.mainRoute, inclusive = false)
         } else {
-            navController.navigate(tab.graphRoute) {
+            navController.navigate(route = tab.graphRoute) {
                 launchSingleTop = true
                 restoreState = true
                 popUpTo(SettingsRoutes.Graph) { saveState = true }
@@ -33,32 +32,29 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
     }
 
     navigation(
-        startDestination = SettingsRoutes.GeneralGraph,
         route = SettingsRoutes.Graph,
+        startDestination = SettingsRoutes.GeneralGraph,
         deepLinks = listOf(
             navDeepLink { uriPattern = "app://nestednavigationsample/settings" }
         )
     ) {
         // General tab graph
         navigation(
-            startDestination = SettingsRoutes.General,
-            route = SettingsRoutes.GeneralGraph
+            route = SettingsRoutes.GeneralGraph,
+            startDestination = SettingsRoutes.GeneralMain
         ) {
             composable(
-                route = SettingsRoutes.General,
+                route = SettingsRoutes.GeneralMain,
                 deepLinks = listOf(
                     navDeepLink { uriPattern = "app://nestednavigationsample/settings/general" }
                 )
             ) {
-                BottomBarScreen(
+                GeneralMainScreen(
                     selectedTab = SettingsTab.General,
-                    onTabSelected = navigateToTab
-                ) {
-                    GeneralScreen(
-                        onBack = { navController.popBackStack() },
-                        onGoDetails = { navController.navigate(SettingsRoutes.GeneralDetails) },
-                    )
-                }
+                    onTabSelected = navigateToTab,
+                    onBack = { navController.popBackStack() },
+                    onGoDetails = { navController.navigate(SettingsRoutes.GeneralDetails) },
+                )
             }
             composable(
                 route = SettingsRoutes.GeneralDetails,
@@ -68,35 +64,31 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                     }
                 )
             ) {
-                BottomBarScreen(
+                GeneralDetailScreen(
                     selectedTab = SettingsTab.General,
-                    onTabSelected = navigateToTab
-                ) {
-                    GeneralDetailsScreen(onBack = { navController.popBackStack() })
-                }
+                    onTabSelected = navigateToTab,
+                    onBack = { navController.popBackStack() }
+                )
             }
         }
 
         // Account tab graph
         navigation(
-            startDestination = SettingsRoutes.Account,
-            route = SettingsRoutes.AccountGraph
+            route = SettingsRoutes.AccountGraph,
+            startDestination = SettingsRoutes.AccountMain
         ) {
             composable(
-                route = SettingsRoutes.Account,
+                route = SettingsRoutes.AccountMain,
                 deepLinks = listOf(
                     navDeepLink { uriPattern = "app://nestednavigationsample/settings/account" }
                 )
             ) {
-                BottomBarScreen(
+                AccountMainScreen(
                     selectedTab = SettingsTab.Account,
-                    onTabSelected = navigateToTab
-                ) {
-                    AccountScreen(
-                        onBack = { navController.popBackStack() },
-                        onGoDetails = { navController.navigate(SettingsRoutes.AccountDetails) }
-                    )
-                }
+                    onTabSelected = navigateToTab,
+                    onBack = { navController.popBackStack() },
+                    onGoDetails = { navController.navigate(SettingsRoutes.AccountDetails) }
+                )
             }
             composable(
                 route = SettingsRoutes.AccountDetails,
@@ -106,48 +98,45 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
                     }
                 )
             ) {
-                BottomBarScreen(
+                AccountDetailScreen(
                     selectedTab = SettingsTab.Account,
-                    onTabSelected = navigateToTab
-                ) {
-                    AccountDetailsScreen(onBack = { navController.popBackStack() })
-                }
+                    onTabSelected = navigateToTab,
+                    onBack = { navController.popBackStack() }
+                )
             }
         }
 
         // About tab graph
         navigation(
-            startDestination = SettingsRoutes.About,
+            startDestination = SettingsRoutes.AboutMain,
             route = SettingsRoutes.AboutGraph
         ) {
             composable(
-                route = SettingsRoutes.About,
+                route = SettingsRoutes.AboutMain,
                 deepLinks = listOf(
                     navDeepLink { uriPattern = "app://nestednavigationsample/settings/about" }
                 )
             ) {
-                BottomBarScreen(
+                AboutMainScreen(
                     selectedTab = SettingsTab.About,
-                    onTabSelected = navigateToTab
-                ) {
-                    AboutScreen(
-                        onBack = { navController.popBackStack() },
-                        onGoDetails = { navController.navigate(SettingsRoutes.AboutDetails) }
-                    )
-                }
+                    onTabSelected = navigateToTab,
+                    onBack = { navController.popBackStack() },
+                    onGoDetails = { navController.navigate(SettingsRoutes.AboutDetails) }
+                )
             }
             composable(
                 route = SettingsRoutes.AboutDetails,
                 deepLinks = listOf(
-                    navDeepLink { uriPattern = "app://nestednavigationsample/settings/about/details" }
+                    navDeepLink {
+                        uriPattern = "app://nestednavigationsample/settings/about/details"
+                    }
                 )
             ) {
-                BottomBarScreen(
+                AboutDetailScreen(
                     selectedTab = SettingsTab.About,
-                    onTabSelected = navigateToTab
-                ) {
-                    AboutDetailsScreen(onBack = { navController.popBackStack() })
-                }
+                    onTabSelected = navigateToTab,
+                    onBack = { navController.popBackStack() }
+                )
             }
         }
     }
